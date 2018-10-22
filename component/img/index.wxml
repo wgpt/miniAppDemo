@@ -1,0 +1,13 @@
+
+<block wx:if="{{srcR}}">
+    <image src="{{srcR}}" class="img {{animate}}" mode="{{mode}}"></image>
+</block>
+
+<block wx:else>
+    <button loading class="bt {{cs}}">加载中</button>
+    <image src="{{src}}" bindload="load" class="hide" mode="widthFix"></image>
+</block>
+
+
+
+

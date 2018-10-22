@@ -1,0 +1,20 @@
+{
+  "name": "happy_red",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stylus": "gulp stylus-go && gulp stylus-run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gulp-rename": "^1.4.0",
+    "gulp-stylus": "^2.7.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}

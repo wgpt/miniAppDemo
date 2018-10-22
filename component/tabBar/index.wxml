@@ -1,0 +1,17 @@
+<!--  底部导行条  -->
+<view class="basebar_box" >
+    <navigator class="bar" wx:for="{{tab}}" wx:key
+               url="{{item.url}}"
+               open-type="{{item.rt}}"
+               data-url="{{item.url}}"
+               catchtap="select"
+    >
+        <button class="btns" plain='true' hover-class="none">
+            <image src="img/{{item.img}}_{{current == item.url?2:1}}.png"></image>
+            <text class="{{current == item.url? 'select':''}}">{{item.name}}</text>
+        </button>
+
+    </navigator>
+
+</view>
+

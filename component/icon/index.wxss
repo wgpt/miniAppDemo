@@ -1,0 +1,6 @@
+@import './iconfont.wxss';
+
+.iconfont {
+  /* transform不支持inline，所以要设置为inline-block */
+  display: inline-block;
+}

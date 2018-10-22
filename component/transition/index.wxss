@@ -1,0 +1,88 @@
+
+.box{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.init{
+    position: relative;
+}
+
+.left{
+    justify-content: flex-start;
+}
+
+.right{
+    justify-content: flex-end;
+}
+
+.top{
+    align-items: flex-start;
+}
+
+.bottom{
+    align-items: flex-end;
+}
+
+.bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0;
+    transition: 1s;
+}
+
+.con{
+    position: relative;
+    transition: 1s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.bgIn{
+    opacity: .7;
+}
+
+.topUp{
+    top: -100%;
+}
+
+.leftUp{
+    left: -100%;
+}
+
+.rightUp{
+    right: 100%;
+}
+
+.bottomUp{
+    bottom: 100%;
+}
+
+.topDown{
+    top: 100%;
+}
+
+.leftDown{
+    left: 100%;
+}
+
+.rightDown{
+    right: -100%;
+}
+
+.bottomDown{
+    bottom: -100%;
+}

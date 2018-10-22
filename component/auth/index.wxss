@@ -1,0 +1,46 @@
+/********************************************************* 获取用户信息授权提示窗口 */
+.userinfo_box {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+.userinfo_prompt_box {
+    width: 80%;
+    margin: 32vh auto 0;
+    background: #fff;
+    border-radius: 10rpx;
+    font-size: 36rpx;
+    text-align: center;
+    overflow: hidden;
+    animation: scale .5s;
+}
+.userinfo_title {
+    color: #222;
+    padding: 30rpx 0 20rpx;
+}
+.userinfo_text {
+    font-size: 32rpx;
+    color: #999;
+    padding-bottom: 30rpx;
+    border-bottom: 2rpx solid #e6e6e7;
+}
+.userinfo_btn button {
+    width: 50%;
+    line-height: 90rpx;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    overflow: unset;
+}
+.userinfo_btn button::after {
+    content: none;
+}

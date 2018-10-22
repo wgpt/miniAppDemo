@@ -1,0 +1,25 @@
+
+<!--
+<view class="userinfo_box" wx:if="{{show}}">
+    <view class='userinfo_prompt_box'>
+        <image src='https://lteimg1.camel.com.cn/upload/wx/default/login.png' style='width:285rpx;margin:50rpx 0 30rpx;' mode='widthFix'/>
+
+        <view class='userinfo_text'>{{prompt_text != undefined ? prompt_text : '获取商品信息失败，请允许授权'}}</view>
+        <view class='userinfo_btn'>
+            <button bindtap='UserInfo_click' data-name='不允许授权' hover-class='none' style='color:#999;border-right:2rpx solid #E6E6E7;'>取消</button>
+            <button bindgetuserinfo='UserInfo_click' open-type='getUserInfo' hover-class='none' style='color:#009D1F;'>{{prompt_btn != undefined ? prompt_btn : '授权'}}</button>
+        </view>
+    </view>
+</view>-->
+
+
+<view class="userinfo_box" wx:if="{{show}}">
+    <view class='userinfo_prompt_box'>
+        <view class='userinfo_title'>提示</view>
+        <view class='userinfo_text'>您还未登录，登录后可获得完整体验</view>
+        <view class='userinfo_btn'>
+            <!--<button bindtap='UserInfo_click' data-name='1' hover-class='none' style='color:#999;border-right:2rpx solid #E6E6E7;'>取消</button>-->
+            <button bindgetuserinfo='UserInfo_click' open-type="getUserInfo" hover-class='none' style='color:#009D1F;'>登录</button>
+        </view>
+    </view>
+</view>

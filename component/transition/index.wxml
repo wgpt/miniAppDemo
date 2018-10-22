@@ -1,0 +1,11 @@
+
+<view class="box {{position}}  {{bg?'':'init'}}" wx:if="{{boxShow}}">
+    <view wx:if="{{bg}}" class="bg {{bgShow?'bgIn':''}}" catchtap="out"></view>
+
+    <view class="con {{class}}">
+        <slot></slot>
+
+    </view>
+
+</view>
+
