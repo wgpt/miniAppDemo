@@ -1,4 +1,3 @@
-const app = getApp()
 
 const url = wx.config.url // 线上
 
@@ -82,7 +81,7 @@ function api(op) {
                 // wx.setStorageSync('code', res.code);
 
                 wx.request({
-                    url: wx.config.url + 'getWxUserInfo',
+                    url: url + 'getWxUserInfo',
                     data: {
                         code: res.code,
                     },
