@@ -1,100 +1,107 @@
 // 新用户登录弹窗
 
 
+import md5 from "../../utils/md5";
+
 Component({
-    properties: {
-        // 这里定义了innerText属性，属性值可以在组件使用时指定
-        collect: {
-            type: Object,
-            value: {}
-        }
+  properties: {
+    collect: {
+      type: Object,
+      value: {},
+    }
+  },
+  data: {
+    userInfoApi: 0,
+  },
+  methods: {
+    hide(e){
+      this.setData({
+        [e.currentTarget.dataset.name]: false
+      })
     },
-    data: {
-        // 这里是一些组件内部数据
-        userInfoApi: 0,
-    },
-    methods: {
-        // 这里是一个自定义方法
-        userClick(e) {
+    userClick(e) {
 
-            this.setData({
-                show: false
+      this.setData({
+        show: false
+      })
+
+      // let op = this.data.userInfoApi;
+
+      // this.data.userInfoApi = 0;
+
+      if (e.currentTarget.dataset.name == 1) {
+        let that = this
+        wx.$.showModal({
+          content: '授权失败，请重试',
+          success() {
+            that.setData({
+              show: true
             })
+          }
+        })
+      } else {
+        this.userInfoSure(e)
+      }
+    },
 
-            // let op = this.data.userInfoApi;
+    userInfoSure(e) {
+      this.setData({"collect.authModal": false})
+      wx.showLoading({
+        title: '正登录中...'
+      })
 
-            // this.data.userInfoApi = 0;
+      wx.login({
+        success: (res) => {
+          let time = new Date().getTime()
+          wx.request({
+            url: wx.config.URL + '/auth/mp_register',
+            data: {
+              code: res.code,
+              iv: e.detail.iv,
+              encryptedData: e.detail.encryptedData
+            },
+            method: 'post',
+            header: {
+              'content-type': 'application/json',
+              'x-api-appkey': 'mp', // 加密验证
+              'x-api-sign': md5.hexMD5(wx.config.secretKey + time),
+              'x-api-clientTime': time
+            }, success: (json) => {
 
-            if (e.currentTarget.dataset.name == 1) {
+              if (json.data.token) {
+
+                wx.$.setUserInfo(json.data.token)
+
+
+                wx.$.showToast({
+                  title: '登录成功'
+                })
+
+                setTimeout(() => {
+                  wx.clearApiList() // 清除队列
+
+                }, 300)
+
+              } else {
+                wx.hideLoading()
+
                 let that = this
                 wx.$.showModal({
-                    content: '授权失败，请重试',
-                    success(){
-                        that.setData({
-                            show: true
-                        })
-                    }
-                })
-            }else{
-                this.userInfoSure(e)
-            }
-        },
-
-        userInfoSure(e){
-            this.setData({"collect.authModal": false })
-            wx.showLoading({
-                title: '正登录中...'
-            })
-
-            wx.login({
-                success: (res) => {
-
-                    wx.request({
-                        url: wx.config.url + 'newUser',
-                        data: {
-                            code: res.code,
-                            iv: e.detail.iv,
-                            encryptedData: e.detail.encryptedData
-                        },
-                        method: 'post',
-                        header: {
-                            'content-type': 'application/json'
-                        }, success: (json) => {
-
-                            if (json.data.token) {
-
-                                wx.$.setUserInfo(json.data.token)
-
-
-                                wx.$.showToast({
-                                    title: '登录成功'
-                                })
-
-                                setTimeout(()=>{
-                                    wx.clearApiList() // 清除队列
-
-                                },300)
-
-                            } else {
-                                wx.hideLoading()
-
-                                let that = this
-                                wx.$.showModal({
-                                    content: '授权失败，请重试',
-                                    success(){
-                                        that.setData({
-                                            "collect.authModal": true
-                                        })
-                                    }
-                                })
-
-                            }
-                        }
+                  content: '授权失败，请重试',
+                  success() {
+                    that.setData({
+                      "collect.authModal": true
                     })
-                }
-            });
+                  }
+                })
 
-        },
-    }
+              }
+            }
+          })
+        }
+      });
+
+    },
+  }
 })
 

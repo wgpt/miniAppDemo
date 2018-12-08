@@ -1,30 +1,66 @@
+page {
+  font-family: 'PingFang-SC-Medium';
+}
+
 /*重置图片大小*/
-image{
-    width: 200rpx;
-    height: 200rpx;
+image {
+  width: 200 rpx;
+  height: 200 rpx;
+}
+
+button{
+  padding: 0;
+  margin: 0;
+  background-color: initial;
+  box-shadow: none;
+}
+
+button::after{
+  border: none;
 }
 
 /*居中*/
-img{
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*全屏水平上下居中*/
+.vw {
+  width: 100vw;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  flex-direction: row;
+}
+
+/*全屏垂直水平居中*/
+.vh {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 /*水平上下居中*/
-.vw{
-    display: flex;
-    white-space:nowrap;
-    align-items: center;
-    flex-direction: row;
+.wf {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-
 /*垂直水平居中*/
-.vh{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.hf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+tabBar{
+  width: 100%;
 }
