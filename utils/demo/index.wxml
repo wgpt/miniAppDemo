@@ -1,0 +1,5 @@
+<!--授权弹窗-->
+<auth show="{{authComponent}}"></auth>
+
+
+

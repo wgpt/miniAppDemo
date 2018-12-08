@@ -12,8 +12,9 @@ const config = {
 }
 
 const global = { // 全局变量
-
+    sercetKey: ''
 }
+
 
 
 export default (type = 'test')=>{
@@ -29,7 +30,7 @@ export default (type = 'test')=>{
             wx.setStorageSync('configType', type);
         }
 
-        wx['config'] = Object.assign(global,config[type])
+        wx['config'] = Object.freeze(bject.assign(global,config[type]))
         // console.log(wx)
     }
 }

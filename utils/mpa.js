@@ -138,16 +138,12 @@ function r(op) { // 调用接口
     wx.request({
       url: op.preUrl + op.url,
       method: op.method,
-      data: {
-        ...op.data,
-        // token: op.token,
-        // openid: op.openid
-      },
+      data: op.data,
       header: {
         'content-type': op.contentType,
         'token': op.token,
         'appKey': 'wx', // 加密验证
-        'sign': md5.hexMD5('hg9ll7ylq5eiojc3uj' + time),
+        'sign': md5.hexMD5(wx.$.secretKey + time),
         'time': time
       },
       success(e) {
