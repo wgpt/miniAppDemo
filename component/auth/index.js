@@ -4,9 +4,9 @@
 Component({
     properties: {
         // 这里定义了innerText属性，属性值可以在组件使用时指定
-        show: {
-            type: Boolean,
-            value: true
+        collect: {
+            type: Object,
+            value: {}
         }
     },
     data: {
@@ -15,7 +15,7 @@ Component({
     },
     methods: {
         // 这里是一个自定义方法
-        UserInfo_click(e) {
+        userClick(e) {
 
             this.setData({
                 show: false
@@ -41,7 +41,7 @@ Component({
         },
 
         userInfoSure(e){
-            this.setData({show: false })
+            this.setData({"collect.authModal": false })
             wx.showLoading({
                 title: '正登录中...'
             })
@@ -61,18 +61,9 @@ Component({
                             'content-type': 'application/json'
                         }, success: (json) => {
 
-                            let data = json.data.data
+                            if (json.data.token) {
 
-
-                            if (data.token) {
-
-
-                                wx.setStorageSync("token", data.token);
-                                wx.setStorageSync("open_id", data.open_id);
-                                wx.setStorageSync("nick_name",  data.nick_name);
-                                wx.setStorageSync("avatar_url",  data.avatar_url);
-                                wx.setStorageSync("uid", data.uid);
-                                wx.setStorageSync("invite_code", data.invite_code);
+                                wx.$.setUserInfo(json.data.token)
 
 
                                 wx.$.showToast({
@@ -89,10 +80,10 @@ Component({
 
                                 let that = this
                                 wx.$.showModal({
-                                    content: json.data.message || '授权失败，请重试',
+                                    content: '授权失败，请重试',
                                     success(){
                                         that.setData({
-                                            show: true
+                                            "collect.authModal": true
                                         })
                                     }
                                 })

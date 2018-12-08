@@ -1,19 +1,35 @@
 {
   "pages": [
-
+    "pages/index/index"
   ],
   "subPackages": [
+    {
+      "root": "",
+      "pages": [
+        ""
+      ]
+    }
 
   ],
 
   "preloadRule": {
-
+    "pages/index/index": {
+      "network": "all",
+      "packages": [""]
+    }
   },
 
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  }
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": ""
+  },
+  "usingComponents": {
+    "auth": "/component/auth/index",
+    "img": "/component/img/index",
+    "transition": "/component/transition/index"
+  },
+  "navigateToMiniProgramAppIdList": [""]
 }

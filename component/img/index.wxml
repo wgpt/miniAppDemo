@@ -1,11 +1,15 @@
 
 <block wx:if="{{srcR}}">
-    <image src="{{srcR}}" class="img {{animate}}" mode="{{mode}}"></image>
+    <image src="{{srcR}}"
+           class="img {{animate}}"
+           mode="{{mode}}"
+           style="{{detail?'width:'+ detail.width + 'px;height:' + detail.height + 'px':''}}"
+    />
 </block>
 
 <block wx:else>
-    <button loading class="bt {{cs}}">加载中</button>
-    <image src="{{src}}" bindload="load" class="hide" mode="widthFix"></image>
+    <button loading="{{loading}}" class="bt {{cs}}">{{loadText}}</button>
+    <image wx:if="{{src}}" src="{{src}}" bindload="load" binderror="error" lazy-load  class="hide" mode="widthFix"></image>
 </block>
 
 

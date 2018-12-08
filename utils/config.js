@@ -1,23 +1,22 @@
-/*全局变量*/
 
 
 const config = {
     "production": { // 正式
-        url: '', //线上
-        image: '', //图片
+        URL: 'https://camel.8848.com/api', //线上
+        IMGURL: 'https://luotuo.8848.com/data/attachment/forum/' // 图片
     },
     "test": {  // 测试
-        url: '', //线上
-        image: '', //图片
+        URL: 'https://ceshi.8848.com/api',
+        IMGURL: 'https://ceshi.8848.com/wx_img'  // 图片
     },
 }
 
 const global = { // 全局变量
-    timeOutCode: 401 // 失效码
+
 }
 
 
-export default (type = 'production')=>{
+export default (type = 'test')=>{
     if(!wx){
         console.log('wx还未初始化')
     }else if(wx['key']){

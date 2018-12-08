@@ -14,7 +14,7 @@ Component({
         },
         out: { // 动画离开位置
             type: String,
-            value: 'topUp'
+            value: ''
         },
         position:{
             type: String,
@@ -32,7 +32,6 @@ Component({
     },
     methods: {
         _show(value){
-
             if(value){
                 this.in()
             }else{
@@ -58,10 +57,8 @@ Component({
             },100)
 
             setTimeout(()=>{
-                this.setData({
-                    flag: false
-                })
-            },1000)
+                this.data.flag = false
+            },500)
 
         },
         out(){
@@ -69,10 +66,12 @@ Component({
            if(this.data.flag) return
 
            this.setData({
-               class: this.data.out,
+               class: this.data.in || 'topUp',
                bgShow: false,
                flag: true
            })
+
+           this.triggerEvent("leave",true)
 
            setTimeout(()=>{
                this.setData({
@@ -80,7 +79,7 @@ Component({
                    show: false,
                    flag: false
                })
-           },800)
+           },500)
 
         }
 
