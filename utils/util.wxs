@@ -1,0 +1,26 @@
+// 注：在wxs中不能使用es6语法
+module.exports = {
+    // 检查数组中是否含有某一对象（字符串、数字等）
+    isInArray: function (arr, element) {
+        return arr.some(function (item) {
+            return element == item
+        })
+    },
+    // 检查数组中是否不含有某一对象（字符串、数字等）
+    notInArray: function (arr, element) {
+        return arr.every(function (item) {
+            return element != item
+        })
+    },
+    // 检查字符串中是否含有某字符
+    indexOf: function (str, subStr) {
+        return str.indexOf(subStr) !== -1
+    },
+    // 截取字符串
+    sliceStr: function (str, length) {
+        if (str.length > length) {
+            return str.slice(0, length) + '...'
+        }
+        return str.slice(0, length)
+    }
+};

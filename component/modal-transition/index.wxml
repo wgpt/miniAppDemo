@@ -1,0 +1,16 @@
+
+<view class="box"
+      wx:if="{{boxShow}}">
+
+    <!--背景-->
+    <view class="bg"
+          animation="{{bg_ani}}"
+          catchtap="{{bgClose?'out':''}}"></view>
+    <view class="slot"
+          animation="{{slot_ani}}">
+        <slot></slot>
+    </view>
+
+
+</view>
+
