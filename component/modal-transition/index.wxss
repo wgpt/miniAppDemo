@@ -12,6 +12,20 @@
     overflow: hidden;
 }
 
+.left{
+    justify-content: flex-start;
+}
+.right{
+    justify-content: flex-end;
+}
+.top{
+    align-items: flex-start;
+}
+.bottom{
+    align-items: flex-end;
+}
+
+
 .bg{
     position: absolute;
     width: 100%;

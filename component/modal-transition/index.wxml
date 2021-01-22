@@ -1,5 +1,5 @@
 
-<view class="box"
+<view class="box {{position}}"
       wx:if="{{boxShow}}">
 
     <!--背景-->
@@ -7,7 +7,8 @@
           animation="{{bg_ani}}"
           catchtap="{{bgClose?'out':''}}"></view>
     <view class="slot"
-          animation="{{slot_ani}}">
+          animation="{{slot_ani}}"
+    >
         <slot></slot>
     </view>
 

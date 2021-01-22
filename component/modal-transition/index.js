@@ -31,6 +31,10 @@ Component({
       type: Boolean,
       value: true
     },
+    position: { // 方框所在位置
+      type: String,
+      value: 'middle'
+    }
   },
   data: {
     bgShow: false,
@@ -113,6 +117,9 @@ Component({
           this.setData({
             boxShow: false,
           })
+
+          this.triggerEvent('modalOut', true)
+
         },outDur)
 
       })
@@ -138,7 +145,26 @@ Component({
         },
         topOut(){ // 淡出
           animate = animate.opacity(0).top('-30%').step()
+        },
+        scaleIn(){ // 弹入
+          animate = animate.opacity(0.6).scale(1.1).step({
+            duration: 60
+          })
+          animate = animate.opacity(1).scale(1).step()
+        },
+        scaleOut(){ // 弹出
+          animate = animate.opacity(0).scale(0).step()
+        },
+        bottomUp(){ // 下方拉起
+          animate = animate.opacity(0.1).bottom('-60%').step({
+            duration: 60
+          })
+          animate = animate.opacity(1).bottom(0).step()
+        },
+        bottomDown(){ // 下方隐藏
+          animate = animate.opacity(0).bottom('-60%').step()
         }
+
 
       }
 

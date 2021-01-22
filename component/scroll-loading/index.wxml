@@ -1,0 +1,66 @@
+<!--加载中 button-->
+
+
+<block wx:if="{{end}}">
+  <button hove-class="none"
+          class="loading"
+          wx:if="{{page > 1}}">—— 已到底了 ——</button>
+
+  <slot wx:elif="{{itemLength == 0}}"></slot>
+
+
+</block>
+
+
+<button class="loading" hove-class="none" loading wx:else>加载中...</button>
+
+
+<!--
+
+
+
+<scroll-loading page="{{page}}"
+                          end="{{end}}"
+                          itemLength="{{list.length}}"
+                          style="color: #fff"
+    >
+        <view class="kong">
+
+            <view>暂无数据</view>
+
+        </view>
+</scroll-loading>
+
+
+data: {
+  end: false,
+  page: 0,
+  list: [],
+  flag: false,
+}
+
+getList(){
+        let {end, page, list, flag} = this.data
+
+        if(flag || end) return
+        this.data.flag = true
+        page += 1
+
+        http.get(``,{
+            to_state: categoryIndex,
+            page
+        }).then((res)=>{
+            let result = res.data.result
+
+            this.setData({
+                list: list.concat(result),
+                end: result.length < 6,
+                page,
+                flag: false,
+            })
+        })
+
+    },
+
+
+-->
