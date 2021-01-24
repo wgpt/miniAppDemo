@@ -2,12 +2,12 @@
 
 const config = {
     "production": { // 正式
-        URL: 'https://camel.8848.com/api', //线上
-        IMGURL: 'https://luotuo.8848.com/data/attachment/forum/' // 图片
+        URL: 'X/api', //线上
+        IMGURL: 'X/' // 图片
     },
     "test": {  // 测试
-        URL: 'https://ceshi.8848.com/api',
-        IMGURL: 'https://ceshi.8848.com/wx_img'  // 图片
+        URL: 'X/api',
+        IMGURL: 'X/wx_img'  // 图片
     },
 }
 
@@ -30,7 +30,7 @@ export default (type = 'test')=>{
             wx.setStorageSync('configType', type);
         }
 
-        wx['config'] = Object.freeze(bject.assign(global,config[type]))
+        wx['config'] = Object.freeze(Object.assign(global,config[type]))
         // console.log(wx)
     }
 }

@@ -1,9 +1,9 @@
 
-<transition show="{{collect.authModal}}" in="scale">
+<modal-transition show="{{collect.authModal}}" in="scale">
   <view class='userinfo_box'>
       <image src="auth.png"></image>
       <text class="tx" decode>
-        老板，骆驼运动需要您的授权\n才能更好的为您服务哦~拜托啦~
+        需要您的授权\n才能更好的为您服务哦~拜托啦~
       </text>
 
       <view class="bt">
@@ -12,4 +12,4 @@
       </view>
 
   </view>
-</transition>
+</modal-transition>
