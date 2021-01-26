@@ -1,6 +1,6 @@
 .idea/
 .vscode/
-node_module/
 
 project.config.json
 
+/node_modules/
