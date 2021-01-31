@@ -1,80 +1,41 @@
-import md5 from "./md5";
-
-const formatTime = date => {
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    const second = date.getSeconds()
-
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
-
-/*序列化当前时间*/
-const formatDate = (time, splitStr) => {
-    if (!time) return '';
-
-    let  date = new Date(time);
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    const second = date.getSeconds()
-
-
-    if (splitStr)
-        return [year, month, day].map(formatNumber).join(splitStr) + ' ' + [hour, minute, second].map(formatNumber).join(':');
-    else
-        return {
-            year, month, day,
-            hour, minute, second
-        };
-}
-
-
-// 删除 下标为key 的对象
-const removeObject = (data, key) => {
-    console.log(key)
-
-    if (Array.isArray(data)) { // 对象
-        data[key] = 0;
-
-        return data.filter(item => item)
-
-
-    } else if (typeof data == 'object') { // 数组过滤下标不为数字的数据
-        let ar = [];
-        for (var i in data) {
-
-            if (i == key || isNaN(i)) continue
-
-            ar.push(data[i])
-        }
-
-        return ar
-
-    } else {
-        console.log('不是对象或数组')
-        return data
+/**
+ * 扩展Date原型，增加格式化方法
+ * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+ * 例子：(new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+ * (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
+ */
+Date.prototype.Format = function (fmt = 'yyyy-MM-dd hh:mm:ss') {
+    const o = {
+        'M+': this.getMonth() + 1, // 月份
+        'd+': this.getDate(), // 日
+        'h+': this.getHours(), // 小时
+        'm+': this.getMinutes(), // 分
+        's+': this.getSeconds(), // 秒
+        'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+        S: this.getMilliseconds(), // 毫秒
     }
-
-
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(
+            RegExp.$1,
+            `${this.getFullYear()}`.substr(4 - RegExp.$1.length),
+        )
+    for (const k in o)
+        if (new RegExp(`(${k})`).test(fmt))
+            fmt = fmt.replace(
+                RegExp.$1,
+                RegExp.$1.length == 1 ? o[k] : `00${o[k]}`.substr(`${o[k]}`.length),
+            )
+    return fmt
 }
+
 
 // 弹窗
 const showToast = (op) => {
 
     let def = {
-        title: '成功',
-        icon: 'success',
-        duration: 1200,
+        title: 'xxxx',
+        icon: 'none',
+        duration: 1500,
         mask: true
     }
 
@@ -109,41 +70,6 @@ const random = (n, m) => {
 }
 
 
-/**
- * // 倒计时计算
- *
- * @param Object
- * {
- *   end 终结时间
- *   start 开始时间
- *
- *   flag 自减**毫秒数**  如果存在 time - flag
- * }
- * */
-const countTime = ({end, start, flag, time}) => {
-    //获取当前时间
-
-    let leftTime
-    if (flag) {
-        leftTime = time - flag;
-    } else {
-        leftTime = end - start;
-    }
-
-    // console.log(leftTime,end,start,flag)
-
-    if (leftTime >= 0) {
-        return {
-            d: Math.floor(leftTime / 1000 / 60 / 60 / 24),
-            h: formatNumber(Math.floor(leftTime / 1000 / 60 / 60 % 24)),
-            m: formatNumber(Math.floor(leftTime / 1000 / 60 % 60)),
-            s: formatNumber(Math.floor(leftTime / 1000 % 60)),
-            end: leftTime
-        }
-    } else {
-        return 0
-    }
-}
 
 /*
 * 返回上一页，没上一页, 返回首页
@@ -165,36 +91,6 @@ const back = () => {
 
 }
 
-
-/**
- * 删除数据，重新渲染
- *
- * @param that 当前页面
- * @key pages data 字段
- * @flag 数组 key
- * @value 过滤值
- *
- * */
-
-const countData = (that, key, flag, value) => {
-
-    let data = that.data[key]
-
-    let ar = []
-
-    let list = []
-
-    for (var i in data) {
-
-        if (data[i][flag] == value) continue
-        ar.push(data[i])
-
-    }
-    list[key] = ar
-
-    that.setData({...list})
-
-}
 
 /**
  * 确定弹窗
@@ -223,9 +119,7 @@ const showModal = (op) => {
 * */
 const getPage = () => {
     let pages = getCurrentPages()
-
     return pages[pages.length - 1]  // 当前页
-
 }
 
 /**
@@ -248,56 +142,6 @@ const go = (url = false, type = 1) => {
 
 }
 
-/**
- * 上传文件
- * */
-const upFile = ({url = '', filePath = ''}) => {
-
-    return new Promise((resolve, reject) => {
-
-        if (!url || !filePath) {
-            showModal({
-                content: '参数错误1000'
-            })
-            reject(false)
-            return
-        }
-
-        wx.api({
-            isLogin: true,
-            hideLoading: false,
-            showLoading: false
-        }).then(() => {
-            let time = new Date().getTime()
-
-            wx.uploadFile({
-                url: url,
-                filePath: filePath,
-                name: 'file',
-                header: {
-                    token: wx.getStorageSync('token'),
-                    'appKey': 'wx', // 加密验证
-                    'sign': md5.hexMD5('hg9ll7ylq5eiojc3uj' + time),
-                    'time': time
-                },
-                success(res) {
-
-                    try {
-                        resolve(JSON.parse(res.data))
-                    } catch (e) {
-                        console.log(e)
-                        reject(res)
-                    }
-
-                },
-                fail(res) {
-                    reject(res)
-                }
-            })
-        })
-
-    })
-}
 
 /*
 * 精确计算
@@ -391,19 +235,13 @@ const valid = {
 
 
 const $ = {
-    formatTime,
-    removeObject, // 删除数据
     showToast,
     showModal,
     settingWx,
     random,
-    countTime, /*倒计时计算*/
-    countData, /*删除数据，重新渲染*/
     getPage, // 当前页
     go, // 自定跳转
     back,
-    upFile, // 上传图片
-    formatDate, // 序列化时间
     calc, // 精确计算
     valid // 过滤规则
 }
